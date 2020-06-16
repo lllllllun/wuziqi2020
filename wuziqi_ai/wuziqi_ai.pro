@@ -18,14 +18,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     ai.cpp \
     main.cpp \
-    Board.cpp \
-    play.cpp
+    Board.cpp
 
 HEADERS += \
     Board.h
 
 FORMS += \
-    Board.ui
+    Board.ui \
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

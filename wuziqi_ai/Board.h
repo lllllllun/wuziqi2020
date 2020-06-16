@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include <QPushButton>
+#include <QMessageBox>
+#include <QDebug>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Board; }
@@ -17,7 +20,7 @@ public:
     explicit Board(QWidget *parent = 0);
 
 
-    int _r=50;//棋子半径
+    int _r=25;//棋子半径
 
     bool getRowCol(QPoint pt,int& row,int &col);
 
@@ -31,13 +34,21 @@ public:
     QPushButton* button2;
 
 
-    int map[15][15]={0};  //棋子数组
+    QMessageBox msgBox;   // 对局提示
+    QMessageBox thinking;
+
+
+
+    int map[15][15]={0};  //棋子数组，棋盘和棋子数组是转置矩阵
     int times = 1;
     int i,j;//上次下棋的位置
+    int x,y;//ai落子位置
+    int winner = 0; //1表示人赢，2表示ai赢，否则为0；
 signals:
 
 private slots:
      void ClickButton();
      void Back();
+
 };
 #endif // BOARD_H
