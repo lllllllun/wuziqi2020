@@ -551,7 +551,7 @@ int point(int* map,int me,int you,int x,int y){ //评估棋盘上某一个点
 }
 
 int evaluate_point(int* map,int me,int you){   //获取棋盘每个点的分数
-    int score=3;
+    int score=6;
     int p=0;
     for(int i=0;i<15;i++){
         for(int j=0;j<15;j++){
@@ -559,7 +559,7 @@ int evaluate_point(int* map,int me,int you){   //获取棋盘每个点的分数
             Y[15*i+j]=j;
             rank[15*i+j]=15*i+j;
             if (gen(map,i,j) && !map[15*i+j]){
-                value[15*i+j] = max(point(map,me,you,i,j),point(map,you,me,i,j));
+                value[15*i+j] = max(2*point(map,me,you,i,j)+1,2*point(map,you,me,i,j)); //同等权重下，进攻优于防守
                 if(value[15*i+j]>=score){  //找到必胜棋或不堵必败棋,记下刻不容缓的那个位置
                     score=value[15*i+j];
                     p=15*i+j;
@@ -576,7 +576,7 @@ void play(int* map,int& x,int& y,int ai,int human){
     Ai=ai;
     Human = human;
     memset(value,-1,sizeof(int)*225);
-    int flag=evaluate_point(map,2,1);
+    int flag=evaluate_point(map,Ai,Human);
     if(flag){     //返回非0值,有必胜棋或必堵棋
         x=flag/15;
         y=flag%15;
