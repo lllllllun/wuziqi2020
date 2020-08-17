@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QMessageBox>
 #include <QDebug>
+#include <QtGui/QTextLine>
 
 
 QT_BEGIN_NAMESPACE
@@ -29,13 +30,13 @@ public:
     void mouseReleaseEvent(QMouseEvent *event);
 
 
-
+    QPushButton* button0;
     QPushButton* button1;
     QPushButton* button2;
-
+    QPushButton* button3;
+    QPushButton* button4;
 
     QMessageBox msgBox;   // 对局提示
-    QMessageBox thinking;
 
 
 
@@ -43,12 +44,18 @@ public:
     int times = 1;
     int i,j;//上次下棋的位置
     int x,y;//ai落子位置
-    int winner = 0; //1表示人赢，2表示ai赢，否则为0；
+    int winner = 0; //表示赢家是谁
+    int game = 0; //表示游戏是否开始
+    int human = 1;
+    int ai = 2;  //表示该下什么颜色的棋,1表示白棋，2表示黑棋
+    int isThinking = 0; //1表示AI在计算
 signals:
 
 private slots:
      void ClickButton();
      void Back();
+     void Last();
+     void Start();
 
 };
 #endif // BOARD_H
