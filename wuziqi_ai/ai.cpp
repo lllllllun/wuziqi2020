@@ -2,7 +2,7 @@
 #include <string.h>
 #include <cmath>
 
-#define DEPTH 4
+#define DEPTH 6
 #define win_score 1000000000
 #define max(a,b) ((a) > (b) ? (a) : (b))
 #define f(x,y,i,j) if((x)+(i)>=0 && (x)+(i) <=14 && (y)+(j)>=0 && (y)+(j)<=14 && map[15*((x)+(i))+(y)+(j)]){return 1;}
@@ -352,11 +352,10 @@ void minmax(int* map,int depth,int& alpha,int& beta,int&x,int&y) {
     int alpha1,beta1;//李代桃僵，把α和β传递给下一级
     if (depth == 0) {
         alpha = Score(map);
-    } else {
+    } else
         if( !(depth%2)){//偶数层
-           for (int i = 0; i < 15; ++i) {
-                for (int j = 0; j < 15; ++j) {
-                    int t =rank[15*i+j];
+           for (int i = 0; i < 10; ++i) {
+                    int t =rank[i];
                     int u = X[t];
                     int v = Y[t];
                     if (gen(map,u,v) && !map[15*u+v]) {
@@ -387,10 +386,9 @@ void minmax(int* map,int depth,int& alpha,int& beta,int&x,int&y) {
        }
       }
 
-     }else{//奇数层
-            for (int i = 0; i <15 ; ++i) {
-                            for (int j = 0; j < 15; ++j) {
-                                int t = rank[15*i+j];
+     else{//奇数层
+            for (int i = 0; i <10 ; ++i) {
+                                int t = rank[i];
                                 int u = X[t];
                                 int v = Y[t];
                                 if (gen(map,u,v) && !map[15*u+v]) {
@@ -413,10 +411,10 @@ void minmax(int* map,int depth,int& alpha,int& beta,int&x,int&y) {
 
 
                     }
-                    }
+
                  }
 }
-}}
+}
 
 int point(int* map,int me,int you,int x,int y){ //评估棋盘上某一个点
     int con[5],flag[5]; //con：连子数 flag1：开合状态
@@ -527,7 +525,7 @@ int point(int* map,int me,int you,int x,int y){ //评估棋盘上某一个点
         u=u*(i+1)/i;
         v=v*(i+1)/i;
     }
-    if(con[1] == 5||con[2] == 5||con[3] == 5 ||con[4] == 5){return 5;}//成五
+    if(con[1] >= 5||con[2] >= 5||con[3] >= 5 ||con[4] >= 5){return 5;}//成五(后续猜测出现了罕见的成六现象，故改为>=)
     if((con[1] == 4&& flag[1]==2)||
        (con[2] == 4&& flag[2]==2)||
        (con[3] == 4&& flag[3]==2)||
