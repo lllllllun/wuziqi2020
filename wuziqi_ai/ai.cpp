@@ -354,7 +354,9 @@ void minmax(int* map,int depth,int& alpha,int& beta,int&x,int&y) {
         alpha = Score(map);
     } else
         if( !(depth%2)){//偶数层
-           for (int i = 0; i < 10; ++i) {
+           int cnt = 0;
+           evaluate_point(map,Ai,Human);
+           for (int i = 0; i < 225; ++i) {
                     int t =rank[i];
                     int u = X[t];
                     int v = Y[t];
@@ -380,6 +382,9 @@ void minmax(int* map,int depth,int& alpha,int& beta,int&x,int&y) {
                            x=u;
                            y=v;}
                        }   //如果赢了，这个节点不用向下搜索
+                       cnt++;
+                       if(cnt>10)
+                           break;
 
 
         }
@@ -387,7 +392,9 @@ void minmax(int* map,int depth,int& alpha,int& beta,int&x,int&y) {
       }
 
      else{//奇数层
-            for (int i = 0; i <10 ; ++i) {
+            int cnt = 0;
+            evaluate_point(map,Ai,Human);
+            for (int i = 0; i <225 ; ++i) {
                                 int t = rank[i];
                                 int u = X[t];
                                 int v = Y[t];
@@ -408,6 +415,10 @@ void minmax(int* map,int depth,int& alpha,int& beta,int&x,int&y) {
                                  }else{
                                         beta = INT_MIN;
                                     }
+                                cnt++;
+                                if(cnt>10)
+                                    break;
+
 
 
                     }
